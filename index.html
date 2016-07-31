@@ -6,23 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>原生JS图片轮播</title>
     <style type="text/css">
-      .container{
+      .container {
         position: relative;
         width: 1156px;
         height: 650px;
         overflow: hidden;
       }
-      .list{
+      .list {
         position: absolute;
         left: 0;
         white-space:nowrap;
+        animation: 10s slider infinite;
+        font-size: 0;
+        -webkit-text-size-adjust:none;
+      }
+      @keyframes slider {
+        16% { left: 0px; }
+        32% { left: -1156px; }
+        48% { left: -2312px; }
+        64% { left: -3468px; }
+        80% { left: -4624px; }
+        100% { left: -5780px; }
       }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="list">
-        <img src="images/5.png">
         <img src="images/1.png">
         <img src="images/2.png">
         <img src="images/3.png">
@@ -31,12 +41,5 @@
         <img src="images/1.png">
       </div>
     </div>
-    <script type="text/javascript">
-      var list = document.getElementByClass("list");
-      function slider(offset){
-        
-      }
-      setInterval() 
-    </script>
   </body>
 </html>
