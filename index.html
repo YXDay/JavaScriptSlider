@@ -1,45 +1,119 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>原生JS图片轮播</title>
     <style type="text/css">
-      .container {
-        position: relative;
-        width: 1156px;
-        height: 650px;
-        overflow: hidden;
-      }
-      .list {
-        position: absolute;
-        left: 0;
-        white-space:nowrap;
-        animation: 10s slider infinite;
-        font-size: 0;
-        -webkit-text-size-adjust:none;
-      }
-      @keyframes slider {
+        .container {
+            position: relative;
+            width: 1156px;
+            height: 650px;
+            overflow: hidden;
+        }
+
+        .list {
+            position: absolute;
+            left: -1156px;
+            white-space: nowrap;
+            /*animation: 10s slider infinite;*/
+            font-size: 0;
+            -webkit-text-size-adjust: none;
+            transition: 1s;
+        }
+
+        .arrows {
+            display: flex;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+        /*@keyframes slider {
         16% { left: 0px; }
         32% { left: -1156px; }
         48% { left: -2312px; }
         64% { left: -3468px; }
         80% { left: -4624px; }
         100% { left: -5780px; }
-      }
+      }*/
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="container">
-      <div class="list">
-        <img src="images/1.png">
-        <img src="images/2.png">
-        <img src="images/3.png">
-        <img src="images/4.png">
-        <img src="images/5.png">
-        <img src="images/1.png">
-      </div>
+        <div class="list">
+            <img src="images/5.png">
+            <img src="images/1.png">
+            <img src="images/2.png">
+            <img src="images/3.png">
+            <img src="images/4.png">
+            <img src="images/5.png">
+            <img src="images/1.png">
+        </div>
+        <div class="arrows">
+            <img id="arrow_left" src="images/arrow_left.png" alt="" />
+            <img id="arrow_right" src="images/arrow_right.png" alt="" />
+        </div>
     </div>
-  </body>
+
+    <script type="text/javascript">
+        var arrows = document.getElementsByClassName("arrows").item(0);
+        var list = document.getElementsByClassName("list").item(0);
+        var EventUtil = {
+            addHandler: function(element, type, handler) {
+                if (element.addEventListener) {
+                    element.addEventListener(type, handler, false);
+                } else if (element.attachEvent) {
+                    element.attachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = handler;
+                }
+            },
+            getEvent: function() {
+                return event ? event : window.event;
+            },
+            getTarget: function() {
+                return event.target || event.srcElement;
+            }
+        }
+        EventUtil.addHandler(arrows, "click", function(event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            switch (target.id) {
+                case "arrow_left":
+                    move(1156)
+                    break;
+                case "arrow_right":
+                    move(-1156)
+                    break;
+                default:
+
+            }
+        });
+
+        function move(offset) {
+            var left = parseFloat(document.defaultView.getComputedStyle(list).left);
+            left += offset;
+            list.style.left = left + "px";
+        }
+
+        list.addEventListener("transitionend", listener, false);
+        function listener() {
+          var left = parseFloat(document.defaultView.getComputedStyle(list).left);
+          if (left == 0) {
+              list.style.transition = "0s";
+              list.style.left = "-5780px"
+          } else if (left == -6936) {
+              list.style.transition = "0s";
+              list.style.left = "-1156px"
+          }
+          list.style.transition = "1s";
+        }
+    </script>
+</body>
+
 </html>
