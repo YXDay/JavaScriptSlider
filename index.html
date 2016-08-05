@@ -79,40 +79,42 @@
             getTarget: function() {
                 return event.target || event.srcElement;
             }
-        }
+        };
         EventUtil.addHandler(arrows, "click", function(event) {
             event = EventUtil.getEvent(event);
             var target = EventUtil.getTarget(event);
             switch (target.id) {
                 case "arrow_left":
-                    move(1156)
+                    move(1156);
                     break;
                 case "arrow_right":
-                    move(-1156)
+                    move(-1156);
                     break;
                 default:
 
             }
         });
-
+        var left = parseFloat(document.defaultView.getComputedStyle(list).left);
         function move(offset) {
-            var left = parseFloat(document.defaultView.getComputedStyle(list).left);
             left += offset;
             list.style.left = left + "px";
         }
 
         list.addEventListener("transitionend", listener, false);
         function listener() {
-          var left = parseFloat(document.defaultView.getComputedStyle(list).left);
+          left = parseFloat(document.defaultView.getComputedStyle(list).left);
           if (left == 0) {
               list.style.transition = "0s";
-              list.style.left = "-5780px"
+              list.style.left = "-5780px";
           } else if (left == -6936) {
               list.style.transition = "0s";
-              list.style.left = "-1156px"
+              list.style.left = "-1156px";
           }
-          list.style.transition = "1s";
+          setTimeout(function() {
+            list.style.transition = "1s";
+          },1000);
         }
+
     </script>
 </body>
 
