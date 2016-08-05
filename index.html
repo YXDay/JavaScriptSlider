@@ -96,21 +96,24 @@
         });
         var left = parseFloat(document.defaultView.getComputedStyle(list).left);
         function move(offset) {
+            list.style.transition = "1s";
             left += offset;
-            list.style.left = left + "px";
+            if (left <= 0 && left >= -6956) {
+                list.style.left = left + "px";
+            }
         }
 
         list.addEventListener("transitionend", listener, false);
         function listener() {
           left = parseFloat(document.defaultView.getComputedStyle(list).left);
-          if (left === 0) {
+          if (left >= 0) {
               list.style.transition = "0s";
               list.style.left = "-5780px";
-          } else if (left == -6936) {
+          } else if (left <= -6936) {
               list.style.transition = "0s";
               list.style.left = "-1156px";
           }
-            list.style.transition = "1s";
+          left = parseFloat(document.defaultView.getComputedStyle(list).left);
         }
 
     </script>
