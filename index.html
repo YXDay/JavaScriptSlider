@@ -103,16 +103,14 @@
         list.addEventListener("transitionend", listener, false);
         function listener() {
           left = parseFloat(document.defaultView.getComputedStyle(list).left);
-          if (left == 0) {
+          if (left === 0) {
               list.style.transition = "0s";
               list.style.left = "-5780px";
           } else if (left == -6936) {
               list.style.transition = "0s";
               list.style.left = "-1156px";
           }
-          setTimeout(function() {
             list.style.transition = "1s";
-          },1000);
         }
 
     </script>
