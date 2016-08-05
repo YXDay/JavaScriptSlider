@@ -24,6 +24,7 @@
             transition: 1s;
         }
 
+
         .arrows {
             display: flex;
             position: absolute;
@@ -96,11 +97,22 @@
         });
         var left = parseFloat(document.defaultView.getComputedStyle(list).left);
         function move(offset) {
-            list.style.transition = "1s";
             left += offset;
             if (left <= 0 && left >= -6956) {
+                list.style.transition = "1s";
                 list.style.left = left + "px";
+            }else if(left >= 0){
+              list.style.transition = "0s";
+              list.style.left = "-5780px";
+              var cur = arrows.offsetTop;
+            }else {
+              list.style.transition = "0s";
+              list.style.left = "-1156px";
+              var cur = arrows.offsetTop;
             }
+            list.style.transition = "1s";
+            console.log(left);
+            left = parseFloat(document.defaultView.getComputedStyle(list).left);
         }
 
         list.addEventListener("transitionend", listener, false);
